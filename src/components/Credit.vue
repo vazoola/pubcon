@@ -62,15 +62,6 @@
 export default {
     data() {
         return {
-            hubData: {
-                submittedAt: null,
-                fields: [],
-                context: {
-                    pageUri: 'https://credit.vazoola.com',
-                    pageName: 'Pubcon Credit',
-                },
-                skipValidation: true,
-            },
             creditOptions: [
                 200,
                 150,
@@ -89,14 +80,23 @@ export default {
             this.email = null;
         },
         sendCredit() {
+            var hubData = {
+                submittedAt: null,
+                fields: [],
+                context: {
+                    pageUri: 'https://credit.vazoola.com',
+                    pageName: 'Pubcon Credit',
+                },
+                skipValidation: true,
+            },
             //set timestamp
-            this.hubData.submittedAt = Date.now();
+            hubData.submittedAt = Date.now();
             //build hubForm array
-              this.hubData.fields.push({
+              hubData.fields.push({
                   name: 'credit',
                   value: this.credit
               })
-              this.hubData.fields.push({
+              hubData.fields.push({
                   name: 'email',
                   value: this.email
               })
@@ -104,7 +104,7 @@ export default {
             xhr.open('POST', 'https://api.hsforms.com/submissions/v3/integration/submit/3379619/8d244d24-de36-4422-8d18-4c46f77a9676', true);
             xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
             // send the collected data as JSON
-            xhr.send(JSON.stringify(this.hubData));
+            xhr.send(JSON.stringify(hubData));
             // eslint-disable-next-line
             xhr.onloadend = (r => {
                 this.sendSuccess();
