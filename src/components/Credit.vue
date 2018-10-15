@@ -66,7 +66,6 @@ export default {
                 submittedAt: null,
                 fields: [],
                 context: {
-                    hutk: "3aea3ab5985f7bc544e847d1f76b5857",
                     pageUri: 'https://credit.vazoola.com',
                     pageName: 'Pubcon Credit',
                 },
