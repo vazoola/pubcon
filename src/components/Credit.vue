@@ -35,20 +35,20 @@
             </div>
             <div class="columns">
                 <div class="column is-10 is-offset-1">
-                    <div class="field">
+                    <div class="field has-addons">
                         <div class="control">
-                            <input autofocus class="input is-large" type="text" v-model="email" placeholder="Enter Email">
+                            <a @click="resetIt" class="button is-large">
+                                <strong>X</strong>
+                            </a>
+                        </div>
+                        <div class="control is-expanded">
+                            <input autocomplete="off" v-focus class="input is-large" type="text" v-model="email" placeholder="Enter Email">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="columns">
-                <div class="column is-6">
-                    <div class="buttons has-addons is-centered">
-                        <a @click="resetIt" class="is-small button">Reset</a>
-                    </div>
-                </div>
-                <div class="column is-6">
+                <div class="column">
                     <div class="buttons has-addons is-centered">
                         <a @click="sendCredit" class="is-large button">Send Credit</a>
                     </div>
@@ -59,6 +59,11 @@
 </template>
 
 <script>
+const focus = {
+    inserted(el) {
+        el.focus()
+    },
+}
 export default {
     data() {
         return {
@@ -73,7 +78,7 @@ export default {
             sent: false,
         }
     },
-
+    directives: { focus },
     methods: {
         resetIt() {
             this.credit = 0;
@@ -88,7 +93,7 @@ export default {
                     pageName: 'Pubcon Credit',
                 },
                 skipValidation: true,
-            },
+            };
             //set timestamp
             hubData.submittedAt = Date.now();
             //build hubForm array
